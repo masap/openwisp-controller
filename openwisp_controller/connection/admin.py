@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+import reversion
 import swapper
 from django import forms
 from django.conf.urls import url
@@ -166,6 +167,7 @@ class CommandWritableInline(admin.StackedInline):
 
 
 DeviceAdmin.inlines += [DeviceConnectionInline]
+reversion.register(model=DeviceConnection, follow=['device'])
 DeviceAdmin.conditional_inlines += [
     CommandWritableInline,
     # this inline must come after CommandWritableInline
